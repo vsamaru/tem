@@ -103,7 +103,7 @@ function nextTrack() {
 var recorder, gumStream;
 var recordButton = document.getElementById("recordButton");
 var recordStateText = document.getElementById("recordState");
-recordButton.addEventListener("click", toggleRecording);
+recordButton.addEventListener("click", recordAudio);
 
 function recordAudio() {
     if (recorder && recorder.state == "recording") {
