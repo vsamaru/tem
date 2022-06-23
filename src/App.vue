@@ -228,6 +228,7 @@ const currentMusic = computed(() => {
 </script>
 
 <template>
+   <p id="recordState">inactive</p>
   <div v-if="idIsPresent()">
     <div class="flex gap-1 place-content-start">
       <PlayButton id="play-button" @click="handlePlayButton">
@@ -275,7 +276,7 @@ const currentMusic = computed(() => {
         Go
       </button>
    
-       <p id="recordState">inactive</p>
+
     </div>
   </div>
 </template>
