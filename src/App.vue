@@ -90,15 +90,54 @@ function nextTrack() {
   }
 }
 
-function recordAudio() {
+// function recordAudio() {
   
-  if (navigator.mediaDevices.getUserMedia) {
-  const constraints = { audio: true };
-  let onSuccess = function (stream: any) {};
-  let onError = function (e: any) {};
-  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
-  }
+//   if (navigator.mediaDevices.getUserMedia) {
+//   const constraints = { audio: true };
+//   let onSuccess = function (stream: any) {};
+//   let onError = function (e: any) {};
+//   navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+//   }
+// }
+
+var recorder, gumStream;
+var recordButton = document.getElementById("recordButton");
+var recordStateText = document.getElementById("recordState");
+recordButton.addEventListener("click", toggleRecording);
+
+function recordAudio() {
+    if (recorder && recorder.state == "recording") {
+        recorder.stop();
+        gumStream.getAudioTracks()[0].stop();
+        recordStateText.innerHTML = recorder.state;
+    } else {
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        }).then(function(stream) {
+            gumStream = stream;
+            recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = function(e) {
+                var url = URL.createObjectURL(e.data);
+                var previewContainer = document.createElement('p');
+                var preview = document.createElement('audio');
+                preview.controls = true;
+                preview.src = url;
+                
+                var mimeType = document.createElement('div');
+                mimeType.innerHTML = recorder.mimeType;
+                
+              
+                previewContainer.appendChild(preview);
+                previewContainer.appendChild(mimeType);
+                document.body.appendChild(previewContainer);
+            };
+            recorder.start();
+            recordStateText.innerHTML = recorder.state;
+        });
+    }
 }
+
+
 
 function addTrackFromFile(event: any) {
   const file = event.target.files[0];
