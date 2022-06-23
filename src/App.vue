@@ -91,13 +91,13 @@ function nextTrack() {
 }
 
 function recordAudio() {
-  // TODO: Add this feature
-  //if (navigator.mediaDevices.getUserMedia) {
-  //const constraints = { audio: true };
-  //let onSuccess = function (stream: any) {};
-  // let onError = function (e: any) {};
-  // navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
-  //}
+  
+  if (navigator.mediaDevices.getUserMedia) {
+  const constraints = { audio: true };
+  let onSuccess = function (stream: any) {};
+  let onError = function (e: any) {};
+  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+  }
 }
 
 function addTrackFromFile(event: any) {
