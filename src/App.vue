@@ -274,6 +274,8 @@ const currentMusic = computed(() => {
       >
         Go
       </button>
+   
+       <p id="recordState">inactive</p>
     </div>
   </div>
 </template>
